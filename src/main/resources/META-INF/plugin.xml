@@ -19,12 +19,11 @@
         <listener class="com.github.jinelei.plugin.listeners.SpiritApplicationActivationListener"
                   topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
-    <actions>
-        <group id="Halo Tools" text="Halo Tool" popup="true" icon="/icons/detect.png">
+    <actions resource-bundle="messages.SpiritBundle">
+        <group id="SpiritToolsId" popup="true" icon="/icons/detect.png">
             <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="ReplaceInPath"/>
         </group>
-        <action id="AnalysisEntityId" class="com.github.jinelei.plugin.actions.AnalysisEntity" text="Scan Fields"
-                description="ScanForEntities">
+        <action id="AnalysisEntityId" class="com.github.jinelei.plugin.actions.AnalysisEntity">
             <add-to-group group-id="PopupMenuActions" anchor="first"/>
         </action>
     </actions>
