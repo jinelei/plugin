@@ -20,11 +20,12 @@
                   topic="com.intellij.openapi.application.ApplicationActivationListener"/>
     </applicationListeners>
     <actions resource-bundle="messages.SpiritBundle">
-        <group id="SpiritToolsId" popup="true" icon="/icons/detect.png">
-            <add-to-group group-id="ProjectViewPopupMenu" anchor="after" relative-to-action="ReplaceInPath"/>
+        <group id="SpiritToolsPopupMenu" popup="true" icon="/icons/detect.png">
+            <add-to-group group-id="EditorPopupMenu" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
         </group>
-        <action id="AnalysisEntityId" class="com.github.jinelei.plugin.actions.AnalysisEntity">
-            <add-to-group group-id="PopupMenuActions" anchor="first"/>
+        <action id="AnalysisEntity" class="com.github.jinelei.plugin.actions.AnalysisEntity">
+            <add-to-group group-id="SpiritToolsPopupMenu" anchor="last"/>
         </action>
     </actions>
 </idea-plugin>
