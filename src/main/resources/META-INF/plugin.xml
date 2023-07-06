@@ -4,6 +4,8 @@
     <vendor>jinelei</vendor>
 
     <depends>com.intellij.modules.platform</depends>
+    <depends>com.intellij.modules.lang</depends>
+    <depends>com.intellij.java</depends>
 
     <resource-bundle>messages.SpiritBundle</resource-bundle>
 
