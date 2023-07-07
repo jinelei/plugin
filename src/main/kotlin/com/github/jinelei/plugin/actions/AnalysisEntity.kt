@@ -5,13 +5,21 @@ import com.intellij.openapi.actionSystem.ActionUpdateThread
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
 import com.intellij.openapi.actionSystem.CommonDataKeys
+import com.intellij.openapi.diagnostic.thisLogger
 import com.intellij.openapi.module.ModuleUtilCore
 import com.intellij.openapi.ui.MessageType
 import com.intellij.openapi.ui.SimpleToolWindowPanel
+import com.intellij.openapi.ui.TitlePanel
+import com.intellij.openapi.ui.popup.JBPopupFactory
 import com.intellij.openapi.updateSettings.impl.pluginsAdvertisement.notificationGroup
+import com.intellij.openapi.wm.IdeFrame
 import com.intellij.openapi.wm.ToolWindowManager
 import com.intellij.psi.PsiJavaFile
 import com.intellij.psi.PsiKeyword
+import com.intellij.ui.awt.RelativePoint
+import com.intellij.util.ui.UIUtil
+import java.awt.Dimension
+import javax.swing.JFrame
 import javax.swing.JLabel
 import javax.swing.JPanel
 
@@ -73,26 +81,19 @@ class AnalysisEntity : AnAction() {
     }
 
     fun buildOperationPanel(e: AnActionEvent) {
-        // 获取当前项目
-        val project = e.project ?: return
-
-        // 获取工具窗口管理器和工具窗口
-        val toolWindowManager = ToolWindowManager.getInstance(project)
-        val toolWindow = toolWindowManager.getToolWindow(toolWindowManager.activeToolWindowId) ?: return
-//        val toolWindow = toolWindowManager.getToolWindow("MyToolWindow") ?: return
-
         // 创建面板
-        val panel = SimpleToolWindowPanel(true, true)
-        panel.setContent(JPanel().apply {
-            add(JLabel("这是一个面板"))
-        })
+        val panel = TitlePanel("这里是解析结果", "aaaa").apply {
+            add(JLabel("这是一个弹出面板"))
+            // 获取并设置面板的大小
 
-        // 将面板添加到工具窗口
-        toolWindow.contentManager.removeAllContents(true)
-        toolWindow.contentManager.addContent(toolWindow.contentManager.factory.createContent(panel, null, false))
-
-        // 显示工具窗口
-        toolWindow.activate(null)
-        toolWindow.show()
+            preferredSize = JFrame.getFrames().filter { it is IdeFrame }.first { it.isVisible }.size
+        }
+        // 创建弹出窗口
+        val popup = JBPopupFactory.getInstance().createComponentPopupBuilder(panel, panel)
+            .setResizable(true)
+            .setMovable(true)
+            .setCancelOnClickOutside(true)
+            .createPopup()
+        popup.showInFocusCenter()
     }
 }
